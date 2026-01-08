@@ -1,9 +1,9 @@
 import psutil
-from subprocess import check_output
+import subprocess
 import docker
 
 # Network
-ip = check_output("ifconfig " + "wlan0" + " | awk '/inet / {print $2}'", shell=True)
+ip = subprocess.check_output("ifconfig " + "wlan0" + " | awk '/inet / {print $2}'", shell=True)
 ip = str(ip).strip()[2:-3]
 
 # CPU Stats (% and temp)
@@ -37,4 +37,9 @@ def get_state(container_name):
 containers = ["portainer", "Plex", "Samba"]
 for container in containers:
   print(f'{container.capitalize()+':': <10}{get_state(container).capitalize()}')
+
+# Services
+
+button_status = subprocess.call("systemctl is-active pi_button_shutdown.service", shell=True)
+print(f'Button:   {button_status.capitalize()}')
 
