@@ -1,6 +1,6 @@
 import psutil
 
-cpu% = str(psutil.cpu_percent()) + '%'
+cpu = str(psutil.cpu_percent()) + '%'
 
 # Calculate memory information
 memory = psutil.virtual_memory()
