@@ -1,22 +1,21 @@
 import psutil
 
-# Get cpu statistics
-cpu = str(psutil.cpu_percent()) + '%'
+cpu% = str(psutil.cpu_percent()) + '%'
 
 # Calculate memory information
 memory = psutil.virtual_memory()
-# Convert Bytes to MB (Bytes -> KB -> MB)
-available = round(memory.available/1024.0/1024.0,1)
-total = round(memory.total/1024.0/1024.0,1)
-mem_info = str(available) + 'MB free / ' + str(total) + 'MB total ( ' + str(memory.percent) + '% )'
+# Convert Bytes to GB (Bytes -> KB -> MB -> GB)
+mem_tot = round(memory.total/1024.0/1024.0/1024.0,1)
+mem_used = round(mem_tot - memory.available/1024.0/1024.0/1024.0,1)
+mem_info = str(memory.percent) + '%' + ' [' + str(mem_used) + '/' + str(mem_tot) + ' GB]'
 
 # Calculate disk information
 disk = psutil.disk_usage('/')
 # Convert Bytes to GB (Bytes -> KB -> MB -> GB)
-free = round(disk.free/1024.0/1024.0/1024.0,1)
-total = round(disk.total/1024.0/1024.0/1024.0,1)
-disk_info = str(free) + 'GB free / ' + str(total) + 'GB total ( ' + str(disk.percent) + '% )'
+disk_tot = round(disk.total/1024.0/1024.0/1024.0,1)
+disk_used = round(disk_tot - disk.free/1024.0/1024.0/1024.0,1)
+disk_info = str(disk.percent) + '%' + ' [' + str(disk_used) + '/ ' + str(disk_total) + ' GB]'
 
-print("CPU Info–> ", cpu)
-print("Memory Info–>", mem_info)
-print("Disk Info–>", disk_info)
+print("CPU:     ", cpu)
+print("RAM:     ", mem_info)
+print("SD Card: ", disk_info)
