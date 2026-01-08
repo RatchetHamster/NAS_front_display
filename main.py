@@ -40,7 +40,7 @@ for container in containers:
 
 # Services
 
-button_status = check_output("systemctl is-active pi_button_shutdown.service", shell=True)
+button_status = check_output("systemctl is-active pi_button_shutdown.service", shell=True, check=False)
 print(button_status)
 #print(f'Button:   {button_status.capitalize()}')
 
