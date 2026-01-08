@@ -31,7 +31,7 @@ def get_button_status():
 
 
 print(f'{"IP:": <10}', get_ip())
-print(f'{"CPU:": <10}', get_spu_perc_temp())
+print(f'{"CPU:": <10}', get_cpu_perc_temp())
 print(f'{"RAM:": <10}', get_mem_usage())
 print(f'{"SD Card:": <10}', get_sd_usage())
 print(f'{"Button:": <10}{get_button_status()}')
