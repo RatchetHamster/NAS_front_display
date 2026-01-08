@@ -40,7 +40,7 @@ for container in containers:
 
 # Services
 
-button_status = subprocess.run("systemctl is-active pi_button_shutdown.service", capture_output=True, text=True)
+button_status = subprocess.call("systemctl is-active pi_button_shutdown.service", capture_output=True, text=True)
 print(button_status)
 #print(f'Button:   {button_status.capitalize()}')
 
