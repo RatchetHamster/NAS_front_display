@@ -32,7 +32,7 @@ DOCKER_CLIENT = docker.DockerClient(base_url='unix://var/run/docker.sock')
 
 def get_state(container_name):
     container = DOCKER_CLIENT.containers.get(container_name)
-    return container.attrs['State']
+    return container.attrs['State']['Status']
 
 containers = ["portainer", "Plex", "Samba"]
 for container in containers:
