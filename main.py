@@ -6,15 +6,14 @@ cpu = str(psutil.cpu_percent()) + '%'
 memory = psutil.virtual_memory()
 # Convert Bytes to GB (Bytes -> KB -> MB -> GB)
 mem_tot = round(memory.total/1024.0/1024.0/1024.0,1)
-mem_used = round(mem_tot - memory.available/1024.0/1024.0/1024.0,1)
-mem_info = str(memory.percent) + '%' + ' [' + str(mem_used) + '/' + str(mem_tot) + ' GB]'
+mem_info = str(memory.percent) + '%' + ' [of ' + str(mem_tot) + 'GB]'
 
 # Calculate disk information
 disk = psutil.disk_usage('/')
 # Convert Bytes to GB (Bytes -> KB -> MB -> GB)
 disk_tot = round(disk.total/1024.0/1024.0/1024.0,1)
 disk_used = round(disk_tot - disk.free/1024.0/1024.0/1024.0,1)
-disk_info = str(disk.percent) + '%' + ' [' + str(disk_used) + '/ ' + str(disk_tot) + ' GB]'
+disk_info = str(disk.percent) + '%' + ' [of ' + str(disk_tot) + 'GB]'
 
 print("CPU:     ", cpu)
 print("RAM:     ", mem_info)
