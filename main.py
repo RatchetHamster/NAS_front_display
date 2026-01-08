@@ -1,6 +1,10 @@
 import psutil
+from gpiozero import CPUTemperature
 
-cpu = str(psutil.cpu_percent()) + '%'
+# CPU Stats (% and temp)
+cpu_per = str(psutil.cpu_percent()) + '%'
+cpu_temp = str(CPUTemperature().temperature)
+cpu_info = cpu_per + ' at ' + cpu_temp
 
 # Calculate memory information
 memory = psutil.virtual_memory()
@@ -12,6 +16,6 @@ disk = psutil.disk_usage('/')
 disk_tot = round(disk.total/1024.0/1024.0/1024.0,1) # Bytes to GB
 disk_info = str(disk.percent) + '%' + ' of ' + str(disk_tot) + 'GB'
 
-print("CPU:     ", cpu)
+print("CPU:     ", cpu_info)
 print("RAM:     ", mem_info)
 print("SD Card: ", disk_info)
