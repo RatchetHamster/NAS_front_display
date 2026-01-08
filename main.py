@@ -41,6 +41,6 @@ for container in containers:
 # Services
 
 button_status = subprocess.run(['systemctl', 'is-active', 'pi_button_shutdown.service'], capture_output=True, text=True)
-print(button_status)
+print(button_status.stdout.strip())
 #print(f'Button:   {button_status.capitalize()}')
 
