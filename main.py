@@ -20,7 +20,7 @@ disk = psutil.disk_usage('/')
 disk_tot = round(disk.total/1024.0/1024.0/1024.0,1) # Bytes to GB
 disk_info = str(disk.percent) + '%' + ' of ' + str(disk_tot) + 'GB'
 
-print(ip)
+print("IP:      ", ip)
 print("CPU:     ", cpu_info)
 print("RAM:     ", mem_info)
 print("SD Card: ", disk_info)
