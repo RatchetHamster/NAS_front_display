@@ -1,5 +1,6 @@
 import psutil
 from subprocess import check_output
+import docker
 
 # Network
 ip = check_output("ifconfig " + "wlan0" + " | awk '/inet / {print $2}'", shell=True)
@@ -24,3 +25,16 @@ print("IP:      ", ip)
 print("CPU:     ", cpu_info)
 print("RAM:     ", mem_info)
 print("SD Card: ", disk_info)
+
+### Docker ###
+
+DOCKER_CLIENT = docker.DockerClient(base_url='unix://var/run/docker.sock')
+
+def get_state(container_name):
+    container = DOCKER_CLIENT.containers.get(container_name)
+    return container.attrs['State']
+
+containers = ["portainer", "Plex", "Samba"]
+for container in containers:
+  print(f'{container}:   {get_state(container)})
+
