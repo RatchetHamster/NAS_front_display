@@ -36,5 +36,5 @@ print(f'{"RAM:": <10}', get_mem_usage())
 print(f'{"SD Card:": <10}', get_sd_usage())
 print(f'{"Button:": <10}{get_button_status()}')
 for container in ["portainer", "Plex", "Samba"]:
-  print(f'{container.capitalize()+':': <10}{get_state(container)}')
+  print(f'{container.capitalize()+':': <10}{get_container_state(container)}')
 
