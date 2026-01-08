@@ -1,6 +1,8 @@
 import psutil
 from gpiozero import CPUTemperature
 
+GPIO.setup()
+
 # CPU Stats (% and temp)
 cpu_per = str(psutil.cpu_percent()) + '%'
 cpu_temp = str(CPUTemperature().temperature)
