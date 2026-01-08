@@ -14,7 +14,7 @@ disk = psutil.disk_usage('/')
 # Convert Bytes to GB (Bytes -> KB -> MB -> GB)
 disk_tot = round(disk.total/1024.0/1024.0/1024.0,1)
 disk_used = round(disk_tot - disk.free/1024.0/1024.0/1024.0,1)
-disk_info = str(disk.percent) + '%' + ' [' + str(disk_used) + '/ ' + str(disk_total) + ' GB]'
+disk_info = str(disk.percent) + '%' + ' [' + str(disk_used) + '/ ' + str(disk_tot) + ' GB]'
 
 print("CPU:     ", cpu)
 print("RAM:     ", mem_info)
