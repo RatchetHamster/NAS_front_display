@@ -2,7 +2,7 @@ import psutil
 from subprocess import check_output
 
 ip = check_output("ifconfig " + "wlan0" + " | awk '/inet / {print $2}'", shell=True)
-print(str(ip.strip())[2:-2)
+print(str(ip).strip()[2:-2])
 
 # CPU Stats (% and temp)
 cpu_per = str(psutil.cpu_percent()) + '%'
