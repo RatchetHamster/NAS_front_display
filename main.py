@@ -1,7 +1,7 @@
 import psutil
 from subprocess import check_output
 
-print check_output(['hostname', '-I'])
+print(check_output(['hostname', '-I']))
 
 # CPU Stats (% and temp)
 cpu_per = str(psutil.cpu_percent()) + '%'
