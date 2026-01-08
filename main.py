@@ -36,5 +36,5 @@ def get_state(container_name):
 
 containers = ["portainer", "Plex", "Samba"]
 for container in containers:
-  print(f'{container.capitalize(): <10}:   {get_state(container).capitalize()}')
+  print(f'{container.capitalize(): <9}:{get_state(container).capitalize()}')
 
