@@ -1,6 +1,8 @@
 import psutil
 import subprocess
 import docker
+from machine import Pin, I2C
+import ssd1306
 
 def get_ip():
     return str(subprocess.check_output("ifconfig " + "wlan0" + " | awk '/inet / {print $2}'", shell=True)).strip()[2:-3]
@@ -37,4 +39,8 @@ print(f'{"SD Card:": <11}{get_sd_usage()}')
 print(f'{"Button:": <11}{get_button_status()}')
 for container in ["portainer", "Plex", "Samba"]:
   print(f'{container.capitalize()+':': <11}{get_container_state(container)}')
+
+
+
+
 
