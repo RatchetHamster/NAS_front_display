@@ -2,8 +2,8 @@ import psutil
 
 # CPU Stats (% and temp)
 cpu_per = str(psutil.cpu_percent()) + '%'
-cpu_temp = psutil.sensors_temperatures()['cpu_thermal'][0].current
-cpu_info = cpu_per + ' at ' + cpu_temp
+cpu_temp = str(psutil.sensors_temperatures()['cpu_thermal'][0].current)
+cpu_info = cpu_per + ' at ' + cpu_temp + '°C'
 
 # Calculate memory information
 memory = psutil.virtual_memory()
