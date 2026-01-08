@@ -1,11 +1,8 @@
 import psutil
-from gpiozero import CPUTemperature
-
-GPIO.setup()
 
 # CPU Stats (% and temp)
 cpu_per = str(psutil.cpu_percent()) + '%'
-cpu_temp = str(CPUTemperature().temperature)
+cpu_temp = psutil.sensors_temperatures()['cpu_thermal'][0].current
 cpu_info = cpu_per + ' at ' + cpu_temp
 
 # Calculate memory information
