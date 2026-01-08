@@ -1,7 +1,7 @@
 import psutil
 from subprocess import check_output
 
-ip = check_output("ifconfig " + interface + " | awk '/inet / {print $2}', shell=True)
+ip = check_output("ifconfig " + "wlan0" + " | awk '/inet / {print $2}'", shell=True)
 print(ip)
 
 # CPU Stats (% and temp)
