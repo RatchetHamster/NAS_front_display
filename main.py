@@ -10,7 +10,7 @@ def get_ip():
     return str(subprocess.check_output("ifconfig " + "wlan0" + " | awk '/inet / {print $2}'", shell=True)).strip()[2:-3]
 
 def get_cpu_perc_temp():
-    cpu_per = str(psutil.cpu_percent()) + '%'
+    cpu_per = str(round(psutil.cpu_percent(),1)) + '%'
     cpu_temp = str(psutil.sensors_temperatures()['cpu_thermal'][0].current)
     return cpu_per + ' at ' + cpu_temp + '°C'
 
@@ -45,13 +45,13 @@ def disp_info(device):
 
     #Display on screen:
     with canvas(device, dither=True) as draw:
-        draw.text((3, 5), info, fill='white')
+        draw.text((3, 1), info, fill='white')
 
 
 def main(device):
     while True:
         disp_info(device)
-        time.sleep(5)
+        time.sleep(1)
 
 
 if __name__ == "__main__":
