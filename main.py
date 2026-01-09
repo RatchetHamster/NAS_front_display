@@ -47,13 +47,13 @@ def disp_info(device, font2):
 
     #Display on screen:
     with canvas(device, dither=True) as draw:
-        draw.text((3, 1), info, font=font2, fill='white')
+        draw.text((1, 1), info, font=font2, fill='white')
 
 
 def main(device):
     # use custom font
     font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
-    font2 = ImageFont.truetype(font_path, 10)
+    font2 = ImageFont.truetype(font_path, 8)
     
     while True:
         disp_info(device, font2)
