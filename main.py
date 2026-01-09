@@ -12,7 +12,7 @@ device.contrast(1)
 
 with canvas(device, dither=True) as draw:
     message = 'Hello World'
-    draw.text((10, -1), message, fill='white')
+    draw.text((10, -5), message, fill='white')
 
 
 
