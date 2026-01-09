@@ -11,7 +11,7 @@ def get_ip():
 
 def get_cpu_perc_temp():
     cpu_per = str(psutil.cpu_percent()) + '%'
-    cpu_temp = str(round(psutil.sensors_temperatures()['cpu_thermal'][0].current),1)
+    cpu_temp = str(round(psutil.sensors_temperatures()['cpu_thermal'][0].current,1))
     return cpu_per + ' at ' + cpu_temp + '°C'
 
 def get_mem_usage():
