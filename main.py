@@ -38,18 +38,16 @@ def get_button_status():
 def disp_info(device, font2, screen=1):
     # Screen shoudl be 1 or 2
     # Get info string to display
+    info = ''
     if screen == 1:
-        info = f'{"IP": <6}{get_ip()}\n'
+        info += f'{"IP": <6}{get_ip()}\n'
         info += f'{"CPU": <6}{get_cpu_perc_temp()}\n'
         info += f'{"RAM": <6}{get_mem_usage()}\n'
         info += f'{"HD": <6}{get_sd_usage()}\n'
     elif screen == 2:
-        info = ''
         for container in ["portainer", "Plex", "Samba"]:
             info += f'{container.capitalize(): <11}{get_container_state(container)}\n'
         info += f'{"Button": <11}{get_button_status()}'
-    else:
-        info = ''
         
     #Display on screen:
     with canvas(device, dither=True) as draw:
