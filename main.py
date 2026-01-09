@@ -73,13 +73,13 @@ def main(device):
                 elif screen==2:
                     disp_info(device, get_info(screen), font_s2, screen)
                 time.sleep(refresh_time)
-            for i in range(device.width)
+            for i in range(int(device.width/2)):
                 info1 = get_info(1)
                 info2 = get_info(2)
                 with canvas(device, dither=True) as draw:
-                    draw.text((1-i, 1), info1, font=font_s1, fill='white')
-                    draw.text((device_width+1-i, 1), info2, font=font_s2, fill='white')
-                    time.sleep(0.05)
+                    draw.text((1-i*2, 1), info1, font=font_s1, fill='white')
+                    draw.text((device_width+1-i*2, 1), info2, font=font_s2, fill='white')
+                    time.sleep(0.1)
             
 
 if __name__ == "__main__":
