@@ -44,6 +44,7 @@ def disp_info(device, font2, screen=1):
         info += f'{"RAM": <6}{get_mem_usage()}\n'
         info += f'{"HD": <6}{get_sd_usage()}\n'
     elif screen == 2:
+        info = ''
         for container in ["portainer", "Plex", "Samba"]:
             info += f'{container.capitalize(): <11}{get_container_state(container)}\n'
         info += f'{"Button": <11}{get_button_status()}'
