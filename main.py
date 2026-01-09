@@ -1,13 +1,12 @@
 import psutil
 import subprocess
 import docker
-from machine import Pin, I2C
-import ssd1306
 
-from demo_opts import get_device
+from luma.core.interface.serial import i2c
+from luma.oled.device import ssd1306
 from luma.core.render import canvas
 
-device = get_device()
+
 
 
 
