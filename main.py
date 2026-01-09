@@ -35,16 +35,21 @@ def get_button_status():
     return subprocess.run(['systemctl', 'is-active', 'pi_button_shutdown.service'], capture_output=True, text=True).stdout.strip().capitalize()
 
 
-def disp_info(device, font2):
+def disp_info(device, font2, screen=1):
+    # Screen shoudl be 1 or 2
     # Get info string to display
-    info = f'{"IP": <6}{get_ip()}\n'
-    info += f'{"CPU": <6}{get_cpu_perc_temp()}\n'
-    info += f'{"RAM": <6}{get_mem_usage()}\n'
-    info += f'{"HD": <6}{get_sd_usage()}\n'
-    for container in ["portainer", "Plex", "Samba"]:
-        info += f'{container.capitalize(): <11}{get_container_state(container)}\n'
-    info += f'{"Button": <11}{get_button_status()}'
-
+    if screen == 1:
+        info = f'{"IP": <6}{get_ip()}\n'
+        info += f'{"CPU": <6}{get_cpu_perc_temp()}\n'
+        info += f'{"RAM": <6}{get_mem_usage()}\n'
+        info += f'{"HD": <6}{get_sd_usage()}\n'
+    elif screen == 2:
+        for container in ["portainer", "Plex", "Samba"]:
+            info += f'{container.capitalize(): <11}{get_container_state(container)}\n'
+        info += f'{"Button": <11}{get_button_status()}'
+    else:
+        info = ''
+        
     #Display on screen:
     with canvas(device, dither=True) as draw:
         draw.text((1, 1), info, font=font2, fill='white')
@@ -54,11 +59,14 @@ def main(device):
     # use custom font
     font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
     font2 = ImageFont.truetype(font_path, 10)
+    refresh_time = 0.5
+    screen_time = 5
     
     while True:
-        disp_info(device, font2)
-        time.sleep(1)
-
+        for screen in (1,2):
+            for _ in range(screen_time/refresh_time):
+                disp_info(device, font2, screen)
+                time.sleep(refresh_time)
 
 if __name__ == "__main__":
     try:
