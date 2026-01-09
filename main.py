@@ -12,8 +12,7 @@ device.contrast(1)
 
 with canvas(device, dither=True) as draw:
     message = 'Hello World'
-    text_size = draw.textsize(message)
-    draw.text((device.width - text_size[0], (device.height - text_size[1]) // 2), message, fill='white')
+    draw.text((10, 10), message, fill='white')
 
 
 
