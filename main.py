@@ -37,8 +37,6 @@ def get_button_status():
 
 
 #Run Screen and Main File:
-pad_s1 = 6
-pad_s2 = 11
 font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
 font_s1 = ImageFont.truetype(font_path, 10)
 font_s2 = ImageFont.truetype(font_path, 10)
@@ -46,14 +44,14 @@ font_s2 = ImageFont.truetype(font_path, 10)
 def get_info(screen=1):
     info = ''
     if screen == 1:
-        info += f'{"IP": <pad_s1}{get_ip()}\n'
-        info += f'{"CPU": <pad_s1}{get_cpu_perc_temp()}\n'
-        info += f'{"RAM": <pad_s1}{get_mem_usage()}\n'
-        info += f'{"HD": <pad_s1}{get_sd_usage()}\n'
+        info += f'{"IP": <6}{get_ip()}\n'
+        info += f'{"CPU": <6}{get_cpu_perc_temp()}\n'
+        info += f'{"RAM": <6}{get_mem_usage()}\n'
+        info += f'{"HD": <6}{get_sd_usage()}\n'
     elif screen == 2:
         for container in ["portainer", "Plex", "Samba"]:
-            info += f'{container.capitalize(): <1pad_s2}{get_container_state(container)}\n'
-        info += f'{"Button": <pad_s2}{get_button_status()}'
+            info += f'{container.capitalize(): <11}{get_container_state(container)}\n'
+        info += f'{"Button": <11}{get_button_status()}'
     return info       
 
 def disp_info(device, info, font2, screen=1):    
