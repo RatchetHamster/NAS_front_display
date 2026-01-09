@@ -10,7 +10,7 @@ def get_ip():
     return str(subprocess.check_output("ifconfig " + "wlan0" + " | awk '/inet / {print $2}'", shell=True)).strip()[2:-3]
 
 def get_cpu_perc_temp():
-    cpu_per = str(psutil.cpu_percent())) + '%'
+    cpu_per = str(psutil.cpu_percent()) + '%'
     cpu_temp = str(round(psutil.sensors_temperatures()['cpu_thermal'][0].current),1)
     return cpu_per + ' at ' + cpu_temp + '°C'
 
