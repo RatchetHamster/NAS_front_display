@@ -40,8 +40,8 @@ def get_button_status():
 pad_s1 = 6
 pad_s2 = 11
 font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
-font_s1 = ImageFont.truetype(font_path, fontsize_s1)
-font_s2 = ImageFont.truetype(font_path, fontsize_s2)
+font_s1 = ImageFont.truetype(font_path, 10)
+font_s2 = ImageFont.truetype(font_path, 10)
 
 def get_info(screen=1):
     info = ''
