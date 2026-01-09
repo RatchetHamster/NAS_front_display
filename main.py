@@ -54,7 +54,15 @@ def get_info(screen=1):
         info += f'{"Button": <11}{get_button_status()}'
     return info       
 
-def disp_info(device, info, font2, screen=1):    
+def disp_info(device, screen=1):    
+    info = ''
+    if screen==1:
+        info = get_info(screen)
+        font2 = font_s1
+    elif screen==2:
+        info = get_info(screen)
+        font2 = font_s2
+    
     with canvas(device, dither=True) as draw:
         draw.text((1, 1), info, font=font2, fill='white')
 
@@ -66,18 +74,8 @@ def main(device):
     while True:
         for screen in (1,2):
             for _ in range(int(screen_time/refresh_time)):
-                if screen==1:
-                    disp_info(device, get_info(screen), font_s1, screen)
-                elif screen==2:
-                    disp_info(device, get_info(screen), font_s2, screen)
-                time.sleep(refresh_time)
-            for i in range(int(device.width/2)):
-                info1 = get_info(1)
-                info2 = get_info(2)
-                with canvas(device, dither=True) as draw:
-                    draw.text((1-i*2, 1), info1, font=font_s1, fill='white')
-                    draw.text((device.width+1-i*2, 1), info2, font=font_s2, fill='white')
-            
+                disp_info(device, screen)
+                time.sleep(refresh_time)            
 
 if __name__ == "__main__":
     try:
