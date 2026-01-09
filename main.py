@@ -33,7 +33,7 @@ def get_button_status():
     return subprocess.run(['systemctl', 'is-active', 'pi_button_shutdown.service'], capture_output=True, text=True).stdout.strip().capitalize()
 
 
-def disp_info(device):
+def disp_info(device, font2):
     # Get info string to display
     info = f'{"IP": <11}{get_ip()}\n'
     info += f'{"CPU": <11}{get_cpu_perc_temp()}\n'
@@ -45,12 +45,16 @@ def disp_info(device):
 
     #Display on screen:
     with canvas(device, dither=True) as draw:
-        draw.text((3, 1), info, fill='white')
+        draw.text((3, 1), info, font=font2, fill='white')
 
 
 def main(device):
+    # use custom font
+    font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
+    font2 = ImageFont.truetype(font_path, 10)
+    
     while True:
-        disp_info(device)
+        disp_info(device, font2)
         time.sleep(1)
 
 
