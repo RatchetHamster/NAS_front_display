@@ -1,6 +1,8 @@
 # NAS_front_display
 Connect up 3.3v, ground, SDA, SCL pins. 
 
+setup venv and install requirements.txt
+
 TO RUN AT START UP AS SERVICE:
 
 sudo nano /etc/systemd/system/front_io.service
@@ -15,7 +17,7 @@ After=multi-user.target
 
 [Service]
 
-ExecStart=/usr/bin/python3 /home/pi/python/NAS_front_display/main.py
+ExecStart=/home/pi/python/venv/bin/python /home/pi/python/NAS_front_display/main.py
 
 Restart=always
 
