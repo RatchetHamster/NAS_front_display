@@ -37,10 +37,10 @@ def get_button_status():
 
 def disp_info(device, font2):
     # Get info string to display
-    info = f'{"IP": <11}{get_ip()}\n'
-    info += f'{"CPU": <11}{get_cpu_perc_temp()}\n'
-    info += f'{"RAM": <11}{get_mem_usage()}\n'
-    info += f'{"SD Card": <11}{get_sd_usage()}\n'
+    info = f'{"IP": <8}{get_ip()}\n'
+    info += f'{"CPU": <8}{get_cpu_perc_temp()}\n'
+    info += f'{"RAM": <8}{get_mem_usage()}\n'
+    info += f'{"SD Card": <8}{get_sd_usage()}\n'
     for container in ["portainer", "Plex", "Samba"]:
         info += f'{container.capitalize(): <11}{get_container_state(container)}\n'
     info += f'{"Button": <11}{get_button_status()}'
@@ -53,7 +53,7 @@ def disp_info(device, font2):
 def main(device):
     # use custom font
     font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
-    font2 = ImageFont.truetype(font_path, 9)
+    font2 = ImageFont.truetype(font_path, 10)
     
     while True:
         disp_info(device, font2)
