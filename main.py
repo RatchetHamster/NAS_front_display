@@ -35,13 +35,13 @@ def get_button_status():
 
 def disp_info(device):
     # Get info string to display
-    info = f'{"IP:": <11}{get_ip()}\n'
-    info += f'{"CPU:": <11}{get_cpu_perc_temp()}\n'
-    info += f'{"RAM:": <11}{get_mem_usage()}\n'
-    info += f'{"SD Card:": <11}{get_sd_usage()}\n'
+    info = f'{"IP": <11}{get_ip()}\n'
+    info += f'{"CPU": <11}{get_cpu_perc_temp()}\n'
+    info += f'{"RAM": <11}{get_mem_usage()}\n'
+    info += f'{"SD Card": <11}{get_sd_usage()}\n'
     for container in ["portainer", "Plex", "Samba"]:
-        info += f'{container.capitalize()+':': <11}{get_container_state(container)}\n'
-    info += f'{"Button:": <11}{get_button_status()}'
+        info += f'{container.capitalize(): <11}{get_container_state(container)}\n'
+    info += f'{"Button": <11}{get_button_status()}'
 
     #Display on screen:
     with canvas(device, dither=True) as draw:
