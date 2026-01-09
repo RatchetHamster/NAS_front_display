@@ -77,7 +77,6 @@ def main(device):
                 with canvas(device, dither=True) as draw:
                     draw.text((1-i*2, 1), info1, font=font_s1, fill='white')
                     draw.text((device.width+1-i*2, 1), info2, font=font_s2, fill='white')
-                    time.sleep(0.1)
             
 
 if __name__ == "__main__":
