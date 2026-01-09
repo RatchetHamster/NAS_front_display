@@ -2,13 +2,18 @@ import psutil
 import subprocess
 import docker
 
+import time
 from luma.core.interface.serial import i2c
 from luma.oled.device import ssd1306
 from luma.core.render import canvas
 
+device = ssd1306(i2c(port=1, address=0x3c), width=128, height=64, rotate=0)
+device.contrast(1)
 
-
-
+with canvas(device, dither=True) as draw:
+    message = 'Hello World'
+    text_size = draw.textsize(message)
+    draw.text((device.width - text_size[0], (device.height - text_size[1]) // 2), message, fill='white')
 
 
 
@@ -53,6 +58,6 @@ for container in ["portainer", "Plex", "Samba"]:
   print(f'{container.capitalize()+':': <11}{get_container_state(container)}')
 
 
-
+time.sleep(5*60)
 
 
