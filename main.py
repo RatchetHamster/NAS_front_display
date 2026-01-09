@@ -64,7 +64,7 @@ def main(device):
     
     while True:
         for screen in (1,2):
-            for _ in range(screen_time/refresh_time):
+            for _ in range(int(screen_time/refresh_time)):
                 disp_info(device, font2, screen)
                 time.sleep(refresh_time)
 
