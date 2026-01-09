@@ -4,6 +4,19 @@ import docker
 from machine import Pin, I2C
 import ssd1306
 
+from demo_opts import get_device
+from luma.core.render import canvas
+
+device = get_device()
+
+
+
+
+
+
+
+
+
 def get_ip():
     return str(subprocess.check_output("ifconfig " + "wlan0" + " | awk '/inet / {print $2}'", shell=True)).strip()[2:-3]
 
