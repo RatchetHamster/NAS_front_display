@@ -53,7 +53,7 @@ def disp_info(device, font2):
 def main(device):
     # use custom font
     font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
-    font2 = ImageFont.truetype(font_path, 8)
+    font2 = ImageFont.truetype(font_path, 9)
     
     while True:
         disp_info(device, font2)
