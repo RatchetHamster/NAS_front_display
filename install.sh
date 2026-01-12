@@ -2,7 +2,7 @@
 sudo apt update  
 sudo apt upgrade -y  
 sudo apt install python3-pip -y
-python -m venv_front_io /home/pi/python/venvs/
+python -m venv /home/pi/python/venvs/
 source /home/pi/python/venvs/venv_front_io/bin/activate
 pip install -r /home/pi/python/NAS_front_display/requirements.txt
 
