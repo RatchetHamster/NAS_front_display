@@ -10,7 +10,7 @@ from luma.core.render import canvas
 
 #Information interigators:
 def get_ip():
-    return str(subprocess.check_output("ifconfig " + "wlan0" + " | awk '/inet / {print $2}'", shell=True)).strip()[2:-3]
+    return str(subprocess.check_output("ifconfig " + "eth0" + " | awk '/inet / {print $2}'", shell=True)).strip()[2:-3]
     
 def get_cpu_perc_temp():
     cpu_per = str(psutil.cpu_percent()) + '%'
