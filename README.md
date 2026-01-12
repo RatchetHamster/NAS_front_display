@@ -1,3 +1,9 @@
+## To update  
+if this repo is updated: cd /home/pi/python/NAS_front_display  
+git pull  
+
+
+## To install  
 cd into /home/pi/python (if python doesn't exist, make it)  
 git clone this repo  
 
