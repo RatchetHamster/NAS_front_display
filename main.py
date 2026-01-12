@@ -49,7 +49,7 @@ def get_info(screen=1):
         info += f'{"RAM": <6}{get_mem_usage()}\n'
         info += f'{"HD": <6}{get_sd_usage()}\n'
     elif screen == 2:
-        for container in ["portainer", "Plex", "Samba"]:
+        for container in ["portainer", "Plex", "Samba_NAS1", "Samba_NAS2"]:
             info += f'{container.capitalize(): <11}{get_container_state(container)}\n'
         info += f'{"Button": <11}{get_button_status()}'
     return info       
