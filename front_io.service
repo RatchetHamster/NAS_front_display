@@ -1,0 +1,11 @@
+[Unit]
+Description=System info display
+After=multi-user.target
+
+[Service]
+ExecStart=/home/pi/python/venv/bin/python /home/pi/python/NAS_front_display/main.py
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
