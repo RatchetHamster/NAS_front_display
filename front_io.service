@@ -3,7 +3,7 @@ Description=System info display
 After=multi-user.target
 
 [Service]
-ExecStart=/home/pi/python/venv/bin/python /home/pi/python/NAS_front_display/main.py
+ExecStart=/home/pi/python/venvs/venv_front_io/bin/python /home/pi/python/NAS_front_display/main.py
 Restart=always
 User=root
 
