@@ -5,7 +5,7 @@ pip install -r /home/pi/python/NAS_front_display/requirements.txt
 
 #SETUP SERVICE:
 #Move .service file to correct location
-sudo mv front_io.service /etc/systemd/system/
+sudo mv /home/pi/python/NAS_front_display/front_io.service /etc/systemd/system/
 
 #Enable service at boot
 sudo systemctl daemon-reload
