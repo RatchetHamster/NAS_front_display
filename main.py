@@ -81,6 +81,7 @@ def main(device):
     
     while True:
         for screen in (1,2):
+            print("switch")
             for _ in range(int(screen_time/refresh_time)):
                 screen_info(device, screen)
                 time.sleep(refresh_time)            
