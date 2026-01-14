@@ -97,8 +97,9 @@ def screen_info(device, screen=1):
     
     elif screen == 3:
         font2 = font_s3
-        info += f'{"Button": <11}{get_service_status("pi_button_shutdown")}'
-        info += f'{"Plex": <11}{get_service_status("plexmediaserver")}'
+        info += f'{"Button": <11}{get_service_status("pi_button_shutdown")}\n'
+        info += f'{"Plex": <11}{get_service_status("plexmediaserver")}\n'
+        info += f'{"Samba": <11}{get_service_status("smbd")}\n'
 
     elif screen == 4:
         font2 = font_s4
