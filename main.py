@@ -72,6 +72,7 @@ def get_service_status(service):
 
 #Run Screen and Main File:
 font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
+num_screens = 4
 font_s1 = ImageFont.truetype(font_path, 10)
 font_s2 = ImageFont.truetype(font_path, 10)
 font_s3 = ImageFont.truetype(font_path, 10)
@@ -101,6 +102,9 @@ def screen_info(device, screen=1):
     elif screen == 4:
         font2 = font_s4
 
+    else:
+        logging.error("Screen not defined")
+
     with canvas(device, dither=True) as draw:
         draw.text((1, 1), info, font=font2, fill='white')
     return info
@@ -110,7 +114,7 @@ def main(device):
     refresh_time = 0.5
     screen_time = 5
     while True:
-        for screen in (1,2):
+        for screen in range(1,num_screens+1):
             for _ in range(int(screen_time/refresh_time)):
                 info = screen_info(device, screen)
                 time.sleep(refresh_time)
