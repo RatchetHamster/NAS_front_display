@@ -10,7 +10,7 @@ from luma.oled.device import ssd1306
 from luma.core.render import canvas
 
 #Logger:
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s') #Change level of logging output here
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s') #Change level of logging output here
 
 # SCREEN 1 (system info):
 # SCREEN 2 (HDDs):
