@@ -24,9 +24,7 @@ pip install -r /home/pi/python/NAS_front_display/requirements.txt
 sudo mv /home/pi/python/NAS_front_display/front_io.service /etc/systemd/system/  
 
 #Enable service at boot  
-sudo systemctl daemon-reload  
-sudo systemctl enable front_io  
-sudo systemctl start front_io  
+sudo systemctl daemon-reload && sudo systemctl enable front_io && sudo systemctl start front_io  
 
 #Create logrotate limit on log file  
 sudo nano /etc/logrotate.d/front_io  
