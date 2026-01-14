@@ -58,7 +58,7 @@ def get_HDD_usage(path_to_hdd):
     try:
         disk = psutil.disk_usage(path_to_hdd)
         disk_tot = int(disk.total/1024.0/1024.0/1024.0) # Bytes to GB
-        return str(disk.percent) + '%' + ' of ' + str(disk_tot) + 'GB'
+        return str(disk.percent) + '%' + ' of ' + str(disk_tot) + ' GB'
     except:
         logging.error(f'Something went wrong getting HDD usage: {path_to_hdd}')
         return 'ERR'
