@@ -2,29 +2,21 @@ import psutil
 import subprocess
 import time
 import os
+import logging
 from pathlib import Path
 from PIL import ImageFont
 from luma.core.interface.serial import i2c
 from luma.oled.device import ssd1306
 from luma.core.render import canvas
-import logging
+
+#Logger:
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s') #Change level of logging output here
 
 # SCREEN 1 (system info):
-#    CPU %
-#    CPU Temp
-#    RAM %
-#    SD
 # SCREEN 2 (HDDs):
-#    NAS1: OK/NOT OK usage
-#    NAS2: OK/NOT OK usage
 # SCREEN 3 (Local Services): 
-#    Button
-#    Plex
 # SCREEN 4 (Network services):
 #    AudioPi
-
-#Information interigators:
 
 def get_cpu_temp():
     try:
@@ -58,7 +50,7 @@ def get_HDD_usage(path_to_hdd):
     try:
         disk = psutil.disk_usage(path_to_hdd)
         disk_tot = int(disk.total/1024.0/1024.0/1024.0) # Bytes to GB
-        return str(disk.percent) + '%' + ' of ' + str(disk_tot) + ' GB'
+        return str(int(disk.percent)) + '%' + ' of ' + str(disk_tot) + ' GB'
     except:
         logging.error(f'Something went wrong getting HDD usage: {path_to_hdd}')
         return 'ERR'
