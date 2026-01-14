@@ -118,7 +118,7 @@ def main(device):
 
 if __name__ == "__main__":
     try:
-    logging.INFO("Service Initiated")
+        logging.INFO("Service Initiated")
         try:
             device = ssd1306(i2c(port=1, address=0x3c), width=128, height=64, rotate=0)
             device.contrast(1)
