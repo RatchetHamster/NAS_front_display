@@ -27,4 +27,17 @@ sudo mv /home/pi/python/NAS_front_display/front_io.service /etc/systemd/system/
 sudo systemctl daemon-reload  
 sudo systemctl enable front_io  
 sudo systemctl start front_io  
+
+#Create logrotate limit on log file  
+sudo nano /etc/logrotate.d/front_io  
+into the file put:  
+/var/log/front_io.log  
+{  
+    weekly  
+    minsize 1M  
+    maxsize 10M  
+    rotate 4  
+    missingok  
+    notifempty  
+}  
  
