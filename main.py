@@ -64,7 +64,7 @@ def get_service_status(service):
 
 #Run Screen and Main File:
 font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
-num_screens = 4
+num_screens = 3
 font_s1 = ImageFont.truetype(font_path, 10)
 font_s2 = ImageFont.truetype(font_path, 10)
 font_s3 = ImageFont.truetype(font_path, 10)
@@ -95,6 +95,7 @@ def screen_info(device, screen=1):
 
     elif screen == 4:
         font2 = font_s4
+        # ONCE RUNNING, CHANGE NUMBER OF SCREENS TO 4 AND INTEROGATE AudioPi - anticipate that it is off though. 
 
     else:
         logging.error("Screen not defined")
