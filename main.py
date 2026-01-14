@@ -54,7 +54,7 @@ def screen_info(device, screen=1):
         info += f'{"CPU_%": <6}{get_cpu_per()}\n'
         info += f'{"Temp": <6}{get_cpu_temp()}\n'
         info += f'{"RAM": <6}{get_mem_usage()}\n'
-        info += f'{"SD": <6}{get_sd_usage()}\n'
+        info += f'{"SD": <6}{get_HDD_usage('/')}\n'
 
     elif screen == 2:
         font2 = font_s2
