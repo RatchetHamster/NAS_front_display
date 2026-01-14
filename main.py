@@ -32,7 +32,7 @@ def get_mem_usage():
     return str(psutil.virtual_memory().percent)+ '%'
 def get_HDD_usage(path_to_hdd):
     disk = psutil.disk_usage(path_to_hdd)
-    disk_tot = round(disk.total/1024.0/1024.0/1024.0,1) # Bytes to GB
+    disk_tot = round(disk.total/1024.0/1024.0/1024.0,0) # Bytes to GB
     return str(disk.percent) + '%' + ' of ' + str(disk_tot) + 'GB'
 def get_service_status(service):
     return subprocess.run(['systemctl', 'is-active', f'{service}.service'], capture_output=True, text=True).stdout.strip().capitalize()
@@ -51,10 +51,10 @@ def screen_info(device, screen=1):
     info = ''
     if screen == 1:
         font2 = font_s1
-        info += f'{"CPU %": <8}{get_cpu_per()}\n'
-        info += f'{"Temp": <8}{get_cpu_temp()}\n'
-        info += f'{"RAM": <8}{get_mem_usage()}\n'
-        info += f'{"SD": <8}{get_HDD_usage('/')}\n'
+        info += f'{"CPU %": <7}{get_cpu_per()}\n'
+        info += f'{"Temp": <7}{get_cpu_temp()}\n'
+        info += f'{"RAM": <7}{get_mem_usage()}\n'
+        info += f'{"SD": <7}{get_HDD_usage('/')}\n'
 
     elif screen == 2:
         font2 = font_s2
