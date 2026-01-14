@@ -60,7 +60,7 @@ def screen_info(device, screen=1):
         font2 = font_s2
         for HDD in ["NAS1", "NAS2"]:
             if is_mounted(f'/mnt/{HDD}'):
-                info += f'{HDD:<5}{get_HDD_usage}\n'
+                info += f'{HDD:<5}{get_HDD_usage(f"/mnt/{HDD}")}\n'
             else:
                 info += f'{HDD:<5}Not Mounted!\n'
     
