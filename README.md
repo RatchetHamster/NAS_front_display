@@ -1,8 +1,5 @@
-##TODO  
-Add to run local for debug note  
-Add where log is output to for debug  
-Route python service to log file  
-setup logrotate on log file  
+LOG FILE STORED AT /var/log/front_io.log  
+This takes all consol outputs from the file  
 
 ## To update  
 if this repo is updated:  
