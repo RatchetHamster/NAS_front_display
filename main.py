@@ -51,10 +51,10 @@ def screen_info(device, screen=1):
     info = ''
     if screen == 1:
         font2 = font_s1
-        info += f'{"CPU_%": <6}{get_cpu_per()}\n'
-        info += f'{"Temp": <6}{get_cpu_temp()}\n'
-        info += f'{"RAM": <6}{get_mem_usage()}\n'
-        info += f'{"SD": <6}{get_HDD_usage('/')}\n'
+        info += f'{"CPU %": <8}{get_cpu_per()}\n'
+        info += f'{"Temp": <8}{get_cpu_temp()}\n'
+        info += f'{"RAM": <8}{get_mem_usage()}\n'
+        info += f'{"SD": <8}{get_HDD_usage('/')}\n'
 
     elif screen == 2:
         font2 = font_s2
@@ -62,7 +62,7 @@ def screen_info(device, screen=1):
             if is_mounted(f'/mnt/{HDD}'):
                 info += f'{HDD:<5}{get_HDD_usage}\n'
             else:
-                info += f'{HDD:<5}Not Mounted!'
+                info += f'{HDD:<5}Not Mounted!\n'
     
     elif screen == 3:
         font2 = font_s3
@@ -81,7 +81,6 @@ def main(device):
     
     while True:
         for screen in (1,2):
-            print("switch")
             for _ in range(int(screen_time/refresh_time)):
                 screen_info(device, screen)
                 time.sleep(refresh_time)            
