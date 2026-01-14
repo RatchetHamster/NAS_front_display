@@ -3,7 +3,7 @@ Description=System info display
 After=multi-user.target
 
 [Service]
-ExecStart=/bin/sh -c '/home/pi/python/venvs/venv_front_io/bin/python /home/pi/python/NAS_front_display/main.py > /var/log/front_io.log'
+ExecStart=/bin/sh -c '/home/pi/python/venvs/venv_front_io/bin/python /home/pi/python/NAS_front_display/main.py > /var/log/front_io.log 2>&1'
 Restart=always
 User=root
 
