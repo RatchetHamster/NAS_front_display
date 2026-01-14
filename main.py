@@ -30,28 +30,28 @@ def get_cpu_temp():
     try:
         return str(round(psutil.sensors_temperatures()['cpu_thermal'][0].current,1)) + '°C'
     except:
-        logging.ERROR('Something went wrong getting CPU Temp')
+        logging.error('Something went wrong getting CPU Temp')
         return 'ERR'
         
 def get_cpu_per():
     try:
         return str(psutil.cpu_percent()) + '%'
     except:
-        logging.ERROR('Something went wrong getting CPU %')
+        logging.error('Something went wrong getting CPU %')
         return 'ERR'
         
 def get_mem_usage():
     try:
         return str(psutil.virtual_memory().percent)+ '%'
     except:
-        logging.ERROR('Something went wrong getting mem usage')
+        logging.error('Something went wrong getting mem usage')
         return 'ERR'
 
 def is_mounted(path_to_mount):
     try:
         return os.path.ismount(path_to_mount)
     except:
-        logging.ERROR(f'Something went wrong polling mounted HDD: {path_to_mount}')
+        logging.error(f'Something went wrong polling mounted HDD: {path_to_mount}')
         return 'ERR'
 
 def get_HDD_usage(path_to_hdd):
@@ -60,14 +60,14 @@ def get_HDD_usage(path_to_hdd):
         disk_tot = round(disk.total/1024.0/1024.0/1024.0,0) # Bytes to GB
         return str(disk.percent) + '%' + ' of ' + str(disk_tot) + 'GB'
     except:
-        logging.ERROR(f'Something went wrong getting HDD usage: {path_to_hdd}')
+        logging.error(f'Something went wrong getting HDD usage: {path_to_hdd}')
         return 'ERR'
         
 def get_service_status(service):
     try:
         return subprocess.run(['systemctl', 'is-active', f'{service}.service'], capture_output=True, text=True).stdout.strip().capitalize()
     except:
-        logging.ERROR(f'Something went wrong getting service status: {service}')
+        logging.error(f'Something went wrong getting service status: {service}')
         return 'ERR'
 
 #Run Screen and Main File:
@@ -114,16 +114,16 @@ def main(device):
             for _ in range(int(screen_time/refresh_time)):
                 info = screen_info(device, screen)
                 time.sleep(refresh_time)
-            logging.DEBUG(f'Screen displaying {screen}:\n{info}\n')
+            logging.debug(f'Screen displaying {screen}:\n{info}\n')
 
 if __name__ == "__main__":
+    logging.info("Service Initiated")
     try:
-        logging.INFO("Service Initiated")
         try:
             device = ssd1306(i2c(port=1, address=0x3c), width=128, height=64, rotate=0)
             device.contrast(1)
         except:
-            logging.CRITICAL("Something went wrong with the screen mount.")
+            logging.critical("Something went wrong with the screen mount.")
         main(device)
     except KeyboardInterrupt:
         pass
