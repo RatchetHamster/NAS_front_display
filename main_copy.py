@@ -21,21 +21,21 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 #region ----- Get Infos -----
 def get_cpu_temp():
     try:
-        return str(round(psutil.sensors_temperatures()['cpu_thermal'][0].current,1)) + '°C'
+        return str(round(psutil.sensors_temperatures()['cpu_thermal'][0].current,0)) + '°C'
     except:
         logging.error('Something went wrong getting CPU Temp')
         return 'ERR'
         
 def get_cpu_per():
     try:
-        return str(psutil.cpu_percent()) + '%'
+        return str(int(psutil.cpu_percent())) + '%'
     except:
         logging.error('Something went wrong getting CPU %')
         return 'ERR'
         
 def get_mem_usage():
     try:
-        return str(psutil.virtual_memory().percent)+ '%'
+        return str(int(psutil.virtual_memory().percent))+ '%'
     except:
         logging.error('Something went wrong getting mem usage')
         return 'ERR'
