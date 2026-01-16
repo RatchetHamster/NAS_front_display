@@ -62,6 +62,21 @@ def get_service_status(service):
         logging.error(f'Something went wrong getting service status: {service}')
         return 'ERR'
 
+def is_pi_online(host_ip):
+    try:
+        result = subprocess.run(
+            ["ping", "-c", "1", "-W", str(2), host_ip],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        if result.returncode == 0: 
+            return "Online"
+        else
+            return "Offline"
+    except Exception:
+        return "Offline"
+
+
 #Run Screen and Main File:
 font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
 num_screens = 3
@@ -95,7 +110,7 @@ def screen_info(device, screen=1):
 
     elif screen == 4:
         font2 = font_s4
-        # ONCE RUNNING, CHANGE NUMBER OF SCREENS TO 4 AND INTEROGATE AudioPi - anticipate that it is off though. 
+        info += f'{"AudioPi":<9}{is_pi_online("192.168.0.82")}'
 
     else:
         logging.error("Screen not defined")
