@@ -109,7 +109,7 @@ def screen_info(device, screen=1):
         logging.error("Screen not defined")
 
     with canvas(device, dither=True) as draw:
-        draw.rectangle((1, 45, 128, 64), outline="white")
+        draw.rectangle((1, 45, 127, 63), outline="white")
         draw.text((1, 1), info, font=font2, fill='white')
     return info
 
