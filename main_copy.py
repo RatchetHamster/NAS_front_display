@@ -160,7 +160,7 @@ def main(device):
             while time.time() - start_t <= screen_time:    
                 foot = draw_frame(device, curr_screen_info)
                 time.sleep(frame_rate)
-                
+            print ("out")
             logging.debug(f'Screen displaying {screen}:\n{curr_screen_info+foot}\n')
             next_screen_info = next_thread.join()
 
