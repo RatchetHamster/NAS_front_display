@@ -87,7 +87,6 @@ def check_service(host_ip, service):
 
 #Run Screen and Main File:
 font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
-num_screens = 3
 font1 = ImageFont.truetype(font_path, 10)
 
 def get_screen_info_1():
@@ -148,11 +147,11 @@ def main(device):
     next_screen_info = get_screen_info_1()
     
     while True:    
-        for screen in range(1,num_screens+1):
+        for screen in range(1,len(screen_fun)+1):
             start_t = time.time()
             curr_screen_info = next_screen_info
             next_screen = screen+1
-            if next_screen>num_screens:
+            if next_screen>len(screen_fun):
                 next_screen=1
             next_thread = CustomThread(target=screen_fun[next_screen])
             next_thread.start()
