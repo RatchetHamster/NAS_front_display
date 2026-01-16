@@ -18,6 +18,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # SCREEN 4 (Network services):
 #    AudioPi
 
+#region ----- Get Infos -----
 def get_cpu_temp():
     try:
         return str(round(psutil.sensors_temperatures()['cpu_thermal'][0].current,1)) + '°C'
@@ -80,6 +81,8 @@ def check_service(host_ip, service):
     except:
         return "ERR"
 
+#endregion
+
 
 #Run Screen and Main File:
 font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
@@ -96,36 +99,17 @@ def screen_info(device, screen=1):
         info += f'{"CPU %": <7}{get_cpu_per()}\n'
         info += f'{"Temp": <7}{get_cpu_temp()}\n'
         info += f'{"RAM": <7}{get_mem_usage()}\n'
-        info += f'{"SD": <7}{get_HDD_usage('/')}\n'
 
-    elif screen == 2:
-        font2 = font_s2
-        for HDD in ["NAS1", "NAS2"]:
-            if is_mounted(f'/mnt/{HDD}'):
-                info += f'{HDD:<6}{get_HDD_usage(f"/mnt/{HDD}")}\n'
-            else:
-                info += f'{HDD:<6}Not Mounted!\n'
-    
-    elif screen == 3:
-        font2 = font_s3
-        info += f'{"Button": <11}{get_service_status("pi_button_shutdown")}\n'
-        info += f'{"Plex": <11}{get_service_status("plexmediaserver")}\n'
-        info += f'{"Samba": <11}{get_service_status("smbd")}\n'
 
-    elif screen == 4:
-        font2 = font_s4
-        host1 = '192.168.0.82'
-        status1 = is_pi_online(host1)
-        info += f'{"AudioPi": <11}{status1}\n'
-        if status1 == "Online":
-            info += f'{" - MP3": <11}{check_service(host1, "pirate-mp3")}\n'
-            info += f'{" - Samba": <11}{check_service(host1, "smbd")}\n'
+
+
             
 
     else:
         logging.error("Screen not defined")
 
     with canvas(device, dither=True) as draw:
+        draw.rectangle((2, 50, 126, 62), outline="white")
         draw.text((1, 1), info, font=font2, fill='white')
     return info
 
@@ -140,6 +124,7 @@ def main(device):
                 info = screen_info(device, screen)
                 time.sleep(refresh_time)
             logging.debug(f'Screen displaying {screen}:\n{info}\n')
+
 
 if __name__ == "__main__":
     logging.info("Service Initiated")
