@@ -13,12 +13,6 @@ from luma.core.render import canvas
 #Logger:
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s') #Change level of logging output here
 
-# SCREEN 1 (system info):
-# SCREEN 2 (HDDs):
-# SCREEN 3 (Local Services): 
-# SCREEN 4 (Network services):
-#    AudioPi
-
 #region ----- Get Infos -----
 def get_cpu_temp():
     try:
