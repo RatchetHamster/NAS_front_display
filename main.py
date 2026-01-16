@@ -3,6 +3,7 @@ import subprocess
 import time
 import os
 import logging
+from threading import Thread
 from pathlib import Path
 from PIL import ImageFont
 from luma.core.interface.serial import i2c
@@ -12,29 +13,24 @@ from luma.core.render import canvas
 #Logger:
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s') #Change level of logging output here
 
-# SCREEN 1 (system info):
-# SCREEN 2 (HDDs):
-# SCREEN 3 (Local Services): 
-# SCREEN 4 (Network services):
-#    AudioPi
-
+#region ----- Get Infos -----
 def get_cpu_temp():
     try:
-        return str(round(psutil.sensors_temperatures()['cpu_thermal'][0].current,1)) + '°C'
+        return str(int(psutil.sensors_temperatures()['cpu_thermal'][0].current)) + '°C'
     except:
         logging.error('Something went wrong getting CPU Temp')
         return 'ERR'
         
 def get_cpu_per():
     try:
-        return str(psutil.cpu_percent()) + '%'
+        return str(int(psutil.cpu_percent())) + '%'
     except:
         logging.error('Something went wrong getting CPU %')
         return 'ERR'
         
 def get_mem_usage():
     try:
-        return str(psutil.virtual_memory().percent)+ '%'
+        return str(int(psutil.virtual_memory().percent))+ '%'
     except:
         logging.error('Something went wrong getting mem usage')
         return 'ERR'
@@ -80,66 +76,88 @@ def check_service(host_ip, service):
     except:
         return "ERR"
 
+#endregion
+
 
 #Run Screen and Main File:
 font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
-num_screens = 4
-font_s1 = ImageFont.truetype(font_path, 10)
-font_s2 = ImageFont.truetype(font_path, 10)
-font_s3 = ImageFont.truetype(font_path, 10)
-font_s4 = ImageFont.truetype(font_path, 10)
+font1 = ImageFont.truetype(font_path, 10)
 
-def screen_info(device, screen=1):
-    info = ''
-    if screen == 1:
-        font2 = font_s1
-        info += f'{"CPU %": <7}{get_cpu_per()}\n'
-        info += f'{"Temp": <7}{get_cpu_temp()}\n'
-        info += f'{"RAM": <7}{get_mem_usage()}\n'
-        info += f'{"SD": <7}{get_HDD_usage('/')}\n'
-
-    elif screen == 2:
-        font2 = font_s2
-        for HDD in ["NAS1", "NAS2"]:
+def get_screen_info_1():
+    info = f'{"SD": <6}{get_HDD_usage('/')}\n'
+    for HDD in ["NAS1", "NAS2"]:
             if is_mounted(f'/mnt/{HDD}'):
                 info += f'{HDD:<6}{get_HDD_usage(f"/mnt/{HDD}")}\n'
             else:
                 info += f'{HDD:<6}Not Mounted!\n'
+    return info
+
+def get_screen_info_2():
+    info = f'{"Button": <11}{get_service_status("pi_button_shutdown")}\n'
+    info += f'{"Plex": <11}{get_service_status("plexmediaserver")}\n'
+    info += f'{"Samba": <11}{get_service_status("smbd")}\n'
+    return info
+
+def get_screen_info_3():
+    host1 = '192.168.0.82'
+    status1 = is_pi_online(host1)
+    info = f'{"AudioPi": <11}{status1}\n'
+    if status1 == "Online":
+        info += f'{" - MP3": <11}{check_service(host1, "pirate-mp3")}\n'
+        info += f'{" - Samba": <11}{check_service(host1, "smbd")}\n'
+    return info
     
-    elif screen == 3:
-        font2 = font_s3
-        info += f'{"Button": <11}{get_service_status("pi_button_shutdown")}\n'
-        info += f'{"Plex": <11}{get_service_status("plexmediaserver")}\n'
-        info += f'{"Samba": <11}{get_service_status("smbd")}\n'
-
-    elif screen == 4:
-        font2 = font_s4
-        host1 = '192.168.0.82'
-        status1 = is_pi_online(host1)
-        info += f'{"AudioPi": <11}{status1}\n'
-        if status1 == "Online":
-            info += f'{" - MP3": <11}{check_service(host1, "pirate-mp3")}\n'
-            info += f'{" - Samba": <11}{check_service(host1, "smbd")}\n'
-            
-
-    else:
-        logging.error("Screen not defined")
+def draw_frame(device, info):
+    #Footer Info:
+    foot = f'{"C:"+get_cpu_per():<6}'
+    foot += f'{get_cpu_temp():^6}'
+    foot += f'{"R:"+get_mem_usage():>6}'#18tot chars
 
     with canvas(device, dither=True) as draw:
-        draw.text((1, 1), info, font=font2, fill='white')
-    return info
+        draw.rectangle((1, 48, 127, 63), outline="white")
+        draw.text((11, 49), foot, font=font1, fill='white')
+        draw.text((1, 1), info, font=font1, fill='white')
+    return foot
+
+class CustomThread(Thread):
+    def __init__(self, group=None, target=None, name=None, args=(), kwargs={}, verbose=None):
+        # Initializing the Thread class
+        super().__init__(group, target, name, args, kwargs)
+        self._return = None
+
+    # Overriding the Thread.run function
+    def run(self):
+        if self._target is not None:
+            self._return = self._target(*self._args, **self._kwargs)
+
+    def join(self):
+        super().join()
+        return self._return
 
 def main(device):
     # use custom font
-    refresh_time = 0.5
+    frame_rate = 0.5
     screen_time = 5
-    while True:
-        for screen in range(1,num_screens+1):
+    screen_fun= {1:get_screen_info_1, 2:get_screen_info_2, 3:get_screen_info_3}
+    next_screen_info = get_screen_info_1()
+    
+    while True:    
+        for screen in range(1,len(screen_fun)+1):
             start_t = time.time()
-            while time.time() - start_t <= screen_time:
-                info = screen_info(device, screen)
-                time.sleep(refresh_time)
-            logging.debug(f'Screen displaying {screen}:\n{info}\n')
+            curr_screen_info = next_screen_info
+            next_screen = screen+1
+            if next_screen>len(screen_fun):
+                next_screen=1
+            next_thread = CustomThread(target=screen_fun[next_screen])
+            next_thread.start()
+            
+            while time.time() - start_t <= screen_time:    
+                foot = draw_frame(device, curr_screen_info)
+                time.sleep(frame_rate)
+                
+            logging.debug(f'Screen displaying {screen}:\n{curr_screen_info+foot}\n')
+            next_screen_info = next_thread.join()
+
 
 if __name__ == "__main__":
     logging.info("Service Initiated")
@@ -154,4 +172,3 @@ if __name__ == "__main__":
         pass
     finally:
         device.clear()
-
