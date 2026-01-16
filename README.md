@@ -35,4 +35,6 @@ into the file put:
     missingok  
     notifempty  
 }  
- 
+
+# Setup SSH key for checking services on remote pi's:  
+
