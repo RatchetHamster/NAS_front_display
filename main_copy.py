@@ -21,7 +21,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 #region ----- Get Infos -----
 def get_cpu_temp():
     try:
-        return str(round(psutil.sensors_temperatures()['cpu_thermal'][0].current,0)) + '°C'
+        return str(int(psutil.sensors_temperatures()['cpu_thermal'][0].current)) + '°C'
     except:
         logging.error('Something went wrong getting CPU Temp')
         return 'ERR'
