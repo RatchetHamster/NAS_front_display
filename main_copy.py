@@ -87,7 +87,7 @@ def check_service(host_ip, service):
 
 #Run Screen and Main File:
 font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
-num_screens = 1
+num_screens = 3
 font1 = ImageFont.truetype(font_path, 10)
 
 def get_screen_info_1():
@@ -160,7 +160,7 @@ def main(device):
             while time.time() - start_t <= screen_time:    
                 foot = draw_frame(device, curr_screen_info)
                 time.sleep(frame_rate)
-            print ("out")
+                
             logging.debug(f'Screen displaying {screen}:\n{curr_screen_info+foot}\n')
             next_screen_info = next_thread.join()
 
