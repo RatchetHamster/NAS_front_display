@@ -106,9 +106,9 @@ def screen_info(device, screen=1):
         font2 = font_s2
         for HDD in ["NAS1", "NAS2"]:
             if is_mounted(f'/mnt/{HDD}'):
-                info += f'{HDD:<7}{get_HDD_usage(f"/mnt/{HDD}")}\n'
+                info += f'{HDD:<6}{get_HDD_usage(f"/mnt/{HDD}")}\n'
             else:
-                info += f'{HDD:<7}Not Mounted!\n'
+                info += f'{HDD:<6}Not Mounted!\n'
     
     elif screen == 3:
         font2 = font_s3
@@ -120,9 +120,9 @@ def screen_info(device, screen=1):
         font2 = font_s4
         host1 = '192.168.0.82'
         status1 = is_pi_online(host1)
-        info += f'{"AudioPi": <11}{status1}'
+        info += f'{"AudioPi": <11}{status1}\n'
         if status1 == "Online":
-            info += f'{"  MP3": <11}{check_service(host1, "pirate-mp3")}'
+            info += f'{"  MP3": <11}{check_service(host1, "pirate-mp3")}\n'
             
 
     else:
