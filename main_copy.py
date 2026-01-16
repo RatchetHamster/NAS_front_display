@@ -96,9 +96,9 @@ def screen_info(device, screen=1):
     info = ''
     if screen == 1:
         font2 = font_s1
-        info += f'C: {get_cpu_per()}'
-        info += f'   {get_cpu_temp()}   '
-        info += f'R:{get_mem_usage()}'
+        info += f'{"C:" {get_cpu_per()}:<6}'
+        info += f'{{get_cpu_temp()}:^6}'
+        info += f'{"R:"{get_mem_usage()}>6}'#18tot chars
 
 
 
@@ -109,7 +109,7 @@ def screen_info(device, screen=1):
         logging.error("Screen not defined")
 
     with canvas(device, dither=True) as draw:
-        draw.rectangle((1, 47, 127, 63), outline="white")
+        draw.rectangle((1, 48, 127, 63), outline="white")
         draw.text((8, 49), info, font=font2, fill='white')
     return info
 
