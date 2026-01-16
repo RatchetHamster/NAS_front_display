@@ -155,6 +155,7 @@ def main(device):
             if next_screen>num_screens:
                 next_screen=1
             next_thread = CustomThread(target=screen_fun[next_screen])
+            next_thread.start()
             
             while time.time() - start_t <= screen_time:    
                 foot = draw_frame(device, curr_screen_info)
