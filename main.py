@@ -131,11 +131,12 @@ def screen_info(device, screen=1):
 
 def main(device):
     # use custom font
-    refresh_time = 1
+    refresh_time = 0.5
     screen_time = 5
     while True:
         for screen in range(1,num_screens+1):
-            for _ in range(int(screen_time/refresh_time)):
+            start_t = time.time()
+            while time.time() - start_t <= screen_time:
                 info = screen_info(device, screen)
                 time.sleep(refresh_time)
             logging.debug(f'Screen displaying {screen}:\n{info}\n')
