@@ -37,6 +37,6 @@ into the file put:
 }  
 
 # Setup SSH key for checking services on remote pi's:  
-ssh-keygen  
-ssh-copy-id pi@192.168.0.82  
+sudo ssh-keygen -t ed25519 -f /root/.ssh/id_ed25519 -N ""   
+sudo ssh-copy-id -i /root/.ssh/id_ed25519.pub pi@192.168.0.82 
 enter remtoe pi password to transfer key  
