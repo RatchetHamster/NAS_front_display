@@ -79,7 +79,7 @@ def is_pi_online(host_ip):
 
 #Run Screen and Main File:
 font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
-num_screens = 3
+num_screens = 4
 font_s1 = ImageFont.truetype(font_path, 10)
 font_s2 = ImageFont.truetype(font_path, 10)
 font_s3 = ImageFont.truetype(font_path, 10)
@@ -98,9 +98,9 @@ def screen_info(device, screen=1):
         font2 = font_s2
         for HDD in ["NAS1", "NAS2"]:
             if is_mounted(f'/mnt/{HDD}'):
-                info += f'{HDD:<5}{get_HDD_usage(f"/mnt/{HDD}")}\n'
+                info += f'{HDD:<7}{get_HDD_usage(f"/mnt/{HDD}")}\n'
             else:
-                info += f'{HDD:<5}Not Mounted!\n'
+                info += f'{HDD:<7}Not Mounted!\n'
     
     elif screen == 3:
         font2 = font_s3
