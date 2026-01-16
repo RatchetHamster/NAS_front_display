@@ -76,6 +76,14 @@ def is_pi_online(host_ip):
     except Exception:
         return "Offline"
 
+def check_service(host_ip, service):
+    command = ["ssh", f"pi@{host_ip}", f"systemctl is-active {service}"]
+    try:
+        status = subprocess.run(command, capture_output=True, text=True, timeout=2).stdout.strip()
+        return status
+    except:
+        return "ERR"
+
 
 #Run Screen and Main File:
 font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
@@ -110,7 +118,12 @@ def screen_info(device, screen=1):
 
     elif screen == 4:
         font2 = font_s4
-        info += f'{"AudioPi":<9}{is_pi_online("192.168.0.82")}'
+        host1 = '192.168.0.82'
+        status1 = is_pi_online(host1)
+        info += f'{"AudioPi": <11}{status1}'
+        if status1 == "Online":
+            info += f'{"  MP3": <11}{check_service(host1, "pirate-mp3")}
+            
 
     else:
         logging.error("Screen not defined")
