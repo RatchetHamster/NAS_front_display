@@ -98,7 +98,7 @@ def screen_info(device, screen=1):
         font2 = font_s1
         info += f'C: {get_cpu_per()}'
         info += f'   {get_cpu_temp()}   '
-        info += f'R:{get_mem_usage()}'
+        info += f'R:{get_mem_usage()}1'
 
 
 
