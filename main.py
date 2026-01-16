@@ -71,7 +71,7 @@ def is_pi_online(host_ip):
         )
         if result.returncode == 0: 
             return "Online"
-        else
+        else:
             return "Offline"
     except Exception:
         return "Offline"
