@@ -98,7 +98,7 @@ def screen_info(device, screen=1):
         font2 = font_s1
         info += f'C: {get_cpu_per()}'
         info += f'   {get_cpu_temp()}   '
-        info += f'R:{get_mem_usage()}1'
+        info += f'R:{get_mem_usage()}'
 
 
 
@@ -110,7 +110,7 @@ def screen_info(device, screen=1):
 
     with canvas(device, dither=True) as draw:
         draw.rectangle((1, 45, 127, 63), outline="white")
-        draw.text((4, 49), info, font=font2, fill='white')
+        draw.text((8, 50), info, font=font2, fill='white')
     return info
 
 def main(device):
