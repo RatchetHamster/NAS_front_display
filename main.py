@@ -122,7 +122,7 @@ def screen_info(device, screen=1):
         status1 = is_pi_online(host1)
         info += f'{"AudioPi": <11}{status1}'
         if status1 == "Online":
-            info += f'{"  MP3": <11}{check_service(host1, "pirate-mp3")}
+            info += f'{"  MP3": <11}{check_service(host1, "pirate-mp3")}'
             
 
     else:
