@@ -110,7 +110,7 @@ def screen_info(device, screen=1):
 
     with canvas(device, dither=True) as draw:
         draw.rectangle((1, 45, 127, 63), outline="white")
-        draw.text((1, 45), info, font=font2, fill='white')
+        draw.text((3, 47), info, font=font2, fill='white')
     return info
 
 def main(device):
