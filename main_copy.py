@@ -111,6 +111,7 @@ def get_screen_info_3():
     if status1 == "Online":
         info += f'{" - MP3": <11}{check_service(host1, "pirate-mp3")}\n'
         info += f'{" - Samba": <11}{check_service(host1, "smbd")}\n'
+    return info
     
 def draw_frame(device, info):
     #Footer Info:
