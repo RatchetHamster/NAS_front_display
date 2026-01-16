@@ -150,7 +150,6 @@ def main(device):
     while True:    
         for screen in range(1,num_screens+1):
             start_t = time.time()
-            
             curr_screen_info = next_screen_info
             next_screen = screen+1
             if next_screen>num_screens:
@@ -158,10 +157,10 @@ def main(device):
             next_thread = CustomThread(target=screen_fun[next_screen])
             
             while time.time() - start_t <= screen_time:    
-                foot = draw_frame(device, current_screen_info)
+                foot = draw_frame(device, curr_screen_info)
                 time.sleep(frame_rate)
                 
-            logging.debug(f'Screen displaying {screen}:\n{current_screen_info+foot}\n')
+            logging.debug(f'Screen displaying {screen}:\n{curr_screen_info+foot}\n')
             next_screen_info = next_thread.join()
 
 
