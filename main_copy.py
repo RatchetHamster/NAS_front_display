@@ -3,6 +3,7 @@ import subprocess
 import time
 import os
 import logging
+from threading import Thread
 from pathlib import Path
 from PIL import ImageFont
 from luma.core.interface.serial import i2c
@@ -87,43 +88,81 @@ def check_service(host_ip, service):
 #Run Screen and Main File:
 font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
 num_screens = 1
-font_s1 = ImageFont.truetype(font_path, 10)
-font_s2 = ImageFont.truetype(font_path, 10)
-font_s3 = ImageFont.truetype(font_path, 10)
-font_s4 = ImageFont.truetype(font_path, 10)
+font1 = ImageFont.truetype(font_path, 10)
 
-def screen_info(device, screen=1):
-    info = ''
-    if screen == 1:
-        font2 = font_s1
-        info += f'{"C:"+get_cpu_per():<6}'
-        info += f'{get_cpu_temp():^6}'
-        info += f'{"R:"+get_mem_usage():>6}'#18tot chars
+def get_screen_info_1():
+    info = f'{"SD": <6}{get_HDD_usage('/')}\n'
+    for HDD in ["NAS1", "NAS2"]:
+            if is_mounted(f'/mnt/{HDD}'):
+                info += f'{HDD:<6}{get_HDD_usage(f"/mnt/{HDD}")}\n'
+            else:
+                info += f'{HDD:<6}Not Mounted!\n'
+    return info
 
+def get_screen_info_2():
+    info = f'{"Button": <11}{get_service_status("pi_button_shutdown")}\n'
+    info += f'{"Plex": <11}{get_service_status("plexmediaserver")}\n'
+    info += f'{"Samba": <11}{get_service_status("smbd")}\n'
+    return info
 
-
-
-            
-
-    else:
-        logging.error("Screen not defined")
+def get_screen_info_3():
+    host1 = '192.168.0.82'
+    status1 = is_pi_online(host1)
+    info = f'{"AudioPi": <11}{status1}\n'
+    if status1 == "Online":
+        info += f'{" - MP3": <11}{check_service(host1, "pirate-mp3")}\n'
+        info += f'{" - Samba": <11}{check_service(host1, "smbd")}\n'
+    
+def draw_frame(device, info):
+    #Footer Info:
+    foot = f'{"C:"+get_cpu_per():<6}'
+    foot += f'{get_cpu_temp():^6}'
+    foot += f'{"R:"+get_mem_usage():>6}'#18tot chars
 
     with canvas(device, dither=True) as draw:
         draw.rectangle((1, 48, 127, 63), outline="white")
-        draw.text((11, 49), info, font=font2, fill='white')
-    return info
+        draw.text((11, 49), foot, font=font1, fill='white')
+        draw.text((1, 1), info, font=font1, fill='white')
+    return foot
+
+class CustomThread(Thread):
+    def __init__(self, group=None, target=None, name=None, args=(), kwargs={}, verbose=None):
+        # Initializing the Thread class
+        super().__init__(group, target, name, args, kwargs)
+        self._return = None
+
+    # Overriding the Thread.run function
+    def run(self):
+        if self._target is not None:
+            self._return = self._target(*self._args, **self._kwargs)
+
+    def join(self):
+        super().join()
+        return self._return
 
 def main(device):
     # use custom font
-    refresh_time = 0.5
+    frame_rate = 0.5
     screen_time = 5
-    while True:
+    screen_fun= {1:get_screen_info_1, 2:get_screen_info_2, 3:get_screen_info_3}
+    next_screen_info = get_screen_info_1()
+    
+    while True:    
         for screen in range(1,num_screens+1):
             start_t = time.time()
-            while time.time() - start_t <= screen_time:
-                info = screen_info(device, screen)
-                time.sleep(refresh_time)
-            logging.debug(f'Screen displaying {screen}:\n{info}\n')
+            
+            curr_screen_info = next_screen_info
+            next_screen = screen+1
+            if next_screen>num_screens:
+                next_screen=1
+            next_thread = CustomThread(target=screen_fun[next_screen])
+            
+            while time.time() - start_t <= screen_time:    
+                foot = draw_frame(device, current_screen_info)
+                time.sleep(frame_rate)
+                
+            logging.debug(f'Screen displaying {screen}:\n{current_screen_info+foot}\n')
+            next_screen_info = next_thread.join()
 
 
 if __name__ == "__main__":
