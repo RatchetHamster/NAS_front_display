@@ -131,7 +131,7 @@ def screen_info(device, screen=1):
 
 def main(device):
     # use custom font
-    refresh_time = 0.5
+    refresh_time = 1
     screen_time = 5
     while True:
         for screen in range(1,num_screens+1):
