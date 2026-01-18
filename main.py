@@ -15,8 +15,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 # Load Logo: 
 logo = Image.open("logo.png")
+logo = logo.resize((124,54), resample=Image.NEAREST)
 logo = logo.convert("1")
-logo = logo.resize((124,54))
 
 
 #region ----- Get Infos -----
