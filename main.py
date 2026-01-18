@@ -120,7 +120,7 @@ def draw_frame(device, info, font1):
 
     with canvas(device, dither=True) as draw:
         if info == "SHOW LOGO":
-            draw.bitmap((0,0),logo, fill=1)
+            draw.bitmap((1,1),logo, fill=1)
         else:
             draw.rectangle((1, 48, 127, 63), outline="white")
             draw.text((11, 49), foot, font=font1, fill='white')
