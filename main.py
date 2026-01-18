@@ -5,13 +5,19 @@ import os
 import logging
 from threading import Thread
 from pathlib import Path
-from PIL import ImageFont
+from PIL import ImageFont, Image
 from luma.core.interface.serial import i2c
 from luma.oled.device import ssd1306
 from luma.core.render import canvas
 
 #Logger:
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s') #Change level of logging output here
+
+# Load Logo: 
+logo = Image.open("logo.png")
+logo = logo.resize((124,54), Image.NEAREST)
+logo = logo.convert("1")
+
 
 #region ----- Get Infos -----
 def get_cpu_temp():
@@ -80,9 +86,6 @@ def check_service(host_ip, service):
 
 
 #Run Screen and Main File:
-font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
-font1 = ImageFont.truetype(font_path, 10)
-
 def get_screen_info_1():
     info = f'{"SD": <6}{get_HDD_usage('/')}\n'
     for HDD in ["NAS1", "NAS2"]:
@@ -106,6 +109,9 @@ def get_screen_info_3():
         info += f'{" - MP3": <11}{check_service(host1, "pirate-mp3")}\n'
         info += f'{" - Samba": <11}{check_service(host1, "smbd")}\n'
     return info
+
+def get_screen_info_4():
+    return "SHOW LOGO"
     
 def draw_frame(device, info):
     #Footer Info:
@@ -116,7 +122,10 @@ def draw_frame(device, info):
     with canvas(device, dither=True) as draw:
         draw.rectangle((1, 48, 127, 63), outline="white")
         draw.text((11, 49), foot, font=font1, fill='white')
-        draw.text((1, 1), info, font=font1, fill='white')
+        if info == "SHOW LOGO":
+            draw.bitmap((0,0),logo, fill=1)
+        else:
+            draw.text((1, 1), info, font=font1, fill='white')
     return foot
 
 class CustomThread(Thread):
@@ -135,10 +144,11 @@ class CustomThread(Thread):
         return self._return
 
 def main(device):
-    # use custom font
+    font_path = str(Path(__file__).resolve().parent.joinpath('RobotoMono-Regular.ttf'))
+    font1 = ImageFont.truetype(font_path, 10)
     frame_rate = 0.5
     screen_time = 5
-    screen_fun= {1:get_screen_info_1, 2:get_screen_info_2, 3:get_screen_info_3}
+    screen_fun= {1:get_screen_info_1, 2:get_screen_info_2, 3:get_screen_info_3, 4:get_screen_info_4}
     next_screen_info = get_screen_info_1()
     
     while True:    
