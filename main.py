@@ -120,12 +120,11 @@ def draw_frame(device, info, font1):
     foot += f'{"R:"+get_mem_usage():>6}'#18tot chars
 
     with canvas(device, dither=True) as draw:
-        draw.rectangle((1, 48, 127, 63), outline="white")
-        draw.text((11, 49), foot, font=font1, fill='white')
         if info == "SHOW LOGO":
-            print("got here")
             draw.bitmap((0,0),logo, fill=1)
         else:
+            draw.rectangle((1, 48, 127, 63), outline="white")
+            draw.text((11, 49), foot, font=font1, fill='white')
             draw.text((1, 1), info, font=font1, fill='white')
     return foot
 
