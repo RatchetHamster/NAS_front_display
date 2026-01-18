@@ -15,8 +15,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 # Load Logo: 
 logo = Image.open("logo.png")
-logo = logo.resize((124,54), Image.NEAREST)
 logo = logo.convert("1")
+logo = logo.resize((124,54), Image.NEAREST)
 
 
 #region ----- Get Infos -----
@@ -87,6 +87,9 @@ def check_service(host_ip, service):
 
 #Run Screen and Main File:
 def get_screen_info_1():
+    return "SHOW LOGO"
+    
+def get_screen_info_2():
     info = f'{"SD": <6}{get_HDD_usage('/')}\n'
     for HDD in ["NAS1", "NAS2"]:
             if is_mounted(f'/mnt/{HDD}'):
@@ -95,13 +98,13 @@ def get_screen_info_1():
                 info += f'{HDD:<6}Not Mounted!\n'
     return info
 
-def get_screen_info_2():
+def get_screen_info_3():
     info = f'{"Button": <11}{get_service_status("pi_button_shutdown")}\n'
     info += f'{"Plex": <11}{get_service_status("plexmediaserver")}\n'
     info += f'{"Samba": <11}{get_service_status("smbd")}\n'
     return info
 
-def get_screen_info_3():
+def get_screen_info_4():
     host1 = '192.168.0.82'
     status1 = is_pi_online(host1)
     info = f'{"AudioPi": <11}{status1}\n'
@@ -109,9 +112,6 @@ def get_screen_info_3():
         info += f'{" - MP3": <11}{check_service(host1, "pirate-mp3")}\n'
         info += f'{" - Samba": <11}{check_service(host1, "smbd")}\n'
     return info
-
-def get_screen_info_4():
-    return "SHOW LOGO"
     
 def draw_frame(device, info, font1):
     #Footer Info:
