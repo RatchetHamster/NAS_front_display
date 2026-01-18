@@ -113,7 +113,7 @@ def get_screen_info_3():
 def get_screen_info_4():
     return "SHOW LOGO"
     
-def draw_frame(device, info):
+def draw_frame(device, info, font1):
     #Footer Info:
     foot = f'{"C:"+get_cpu_per():<6}'
     foot += f'{get_cpu_temp():^6}'
@@ -162,7 +162,7 @@ def main(device):
             next_thread.start()
             
             while time.time() - start_t <= screen_time:    
-                foot = draw_frame(device, curr_screen_info)
+                foot = draw_frame(device, curr_screen_info, font1)
                 time.sleep(frame_rate)
                 
             logging.debug(f'Screen displaying {screen}:\n{curr_screen_info+foot}\n')
