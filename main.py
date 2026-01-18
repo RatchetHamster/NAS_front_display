@@ -118,8 +118,11 @@ def draw_frame(device, info, font1):
     foot += f'{get_cpu_temp():^6}'
     foot += f'{"R:"+get_mem_usage():>6}'#18tot chars
 
-    with canvas(device) as draw:
+    with canvas(device, dither=True) as draw:
         if info == "SHOW LOGO":
+            print("mode:", logo.mode)
+            print("size:", logo.size)
+            print("device:", device.width, device.height)
             draw.bitmap((0,0),logo, fill=1)
         else:
             draw.rectangle((1, 48, 127, 63), outline="white")
