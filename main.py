@@ -123,6 +123,7 @@ def draw_frame(device, info, font1):
         draw.rectangle((1, 48, 127, 63), outline="white")
         draw.text((11, 49), foot, font=font1, fill='white')
         if info == "SHOW LOGO":
+            print("got here")
             draw.bitmap((0,0),logo, fill=1)
         else:
             draw.text((1, 1), info, font=font1, fill='white')
