@@ -16,9 +16,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # Load Logo: 
 logo = Image.open("logo.png")
 logo = logo.convert("1")
-logo = logo.resize((124,54), Image.NEAREST)
-print(logo.mode)
-
+logo = logo.resize((100,30), Image.NEAREST)
 
 #region ----- Get Infos -----
 def get_cpu_temp():
