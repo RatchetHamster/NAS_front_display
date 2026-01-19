@@ -14,9 +14,11 @@ from luma.core.render import canvas
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s') #Change level of logging output here
 
 # Load Logo: 
-#logo = Image.open("logo.bmp")
-#logo = logo.resize((124,54), resample=Image.NEAREST)
-#logo = logo.convert("1")
+logo = Image.open("logo.bmp")
+logo = logo.convert("1")
+print("mode:", logo.mode)
+print("size:", logo.size)
+print("device:", device.width, device.height)
 
 
 #region ----- Get Infos -----
