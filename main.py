@@ -14,7 +14,7 @@ from luma.core.render import canvas
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s') #Change level of logging output here
 
 # Load Logo: 
-logo = Image.open("~/python/NAS_front_display/logo.bmp")
+logo = Image.open("/home/pi/python/NAS_front_display/logo.bmp")
 logo = logo.resize((124,51))
 logo = logo.convert("1")
 
