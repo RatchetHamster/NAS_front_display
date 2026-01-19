@@ -15,6 +15,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 # Load Logo: 
 logo = Image.open("logo.bmp")
+logo = logo.resize((124,51))
 logo = logo.convert("1")
 
 
@@ -123,8 +124,9 @@ def draw_frame(device, info, font1):
 
     with canvas(device, dither=True) as draw:
         if info == "SHOW LOGO":
-            #draw.rectangle((1,1,124,51), outline="white")
-            draw.bitmap((0,0),logo, fill="white")
+            x = (device.width - logo.width)//2
+            y = (48 - logo.height) //2
+            draw.bitmap((x,y),logo, fill="white")
         else:
             draw.rectangle((1, 48, 127, 63), outline="white")
             draw.text((11, 49), foot, font=font1, fill='white')
