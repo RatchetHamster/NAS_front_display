@@ -18,7 +18,6 @@ logo = Image.open("logo.bmp")
 logo = logo.convert("1")
 print("mode:", logo.mode)
 print("size:", logo.size)
-print("device:", device.width, device.height)
 
 
 #region ----- Get Infos -----
