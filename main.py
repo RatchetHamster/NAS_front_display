@@ -16,8 +16,6 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # Load Logo: 
 logo = Image.open("logo.bmp")
 logo = logo.convert("1")
-print("mode:", logo.mode)
-print("size:", logo.size)
 
 
 #region ----- Get Infos -----
@@ -126,6 +124,7 @@ def draw_frame(device, info, font1):
     with canvas(device, dither=True) as draw:
         if info == "SHOW LOGO":
             draw.bitmap((0,0),logo, fill=1)
+            draw.rectangle(device.bounding_box, outline=1, fill=0)
         else:
             draw.rectangle((1, 48, 127, 63), outline="white")
             draw.text((11, 49), foot, font=font1, fill='white')
