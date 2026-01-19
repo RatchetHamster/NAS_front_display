@@ -87,10 +87,10 @@ def check_service(host_ip, service):
 
 
 #Run Screen and Main File:
-#def get_screen_info_1():
-#    return "SHOW LOGO"
-    
 def get_screen_info_1():
+    return "SHOW LOGO"
+    
+def get_screen_info_2():
     info = f'{"SD": <6}{get_HDD_usage('/')}\n'
     for HDD in ["NAS1", "NAS2"]:
             if is_mounted(f'/mnt/{HDD}'):
@@ -99,13 +99,13 @@ def get_screen_info_1():
                 info += f'{HDD:<6}Not Mounted!\n'
     return info
 
-def get_screen_info_2():
+def get_screen_info_3():
     info = f'{"Button": <11}{get_service_status("pi_button_shutdown")}\n'
     info += f'{"Plex": <11}{get_service_status("plexmediaserver")}\n'
     info += f'{"Samba": <11}{get_service_status("smbd")}\n'
     return info
 
-def get_screen_info_3():
+def get_screen_info_4():
     host1 = '192.168.0.82'
     status1 = is_pi_online(host1)
     info = f'{"AudioPi": <11}{status1}\n'
@@ -113,7 +113,10 @@ def get_screen_info_3():
         info += f'{" - MP3": <11}{check_service(host1, "pirate-mp3")}\n'
         info += f'{" - Samba": <11}{check_service(host1, "smbd")}\n'
     return info
-    
+
+
+
+
 def draw_frame(device, info, font1):
     #Footer Info:
     foot = f'{"C:"+get_cpu_per():<6}'
@@ -122,15 +125,15 @@ def draw_frame(device, info, font1):
 
     with canvas(device, dither=True) as draw:
         if info == "SHOW LOGO":
-            print("mode:", logo.mode)
-            print("size:", logo.size)
-            print("device:", device.width, device.height)
             draw.bitmap((0,0),logo, fill=1)
         else:
             draw.rectangle((1, 48, 127, 63), outline="white")
             draw.text((11, 49), foot, font=font1, fill='white')
             draw.text((1, 1), info, font=font1, fill='white')
     return foot
+
+
+
 
 class CustomThread(Thread):
     def __init__(self, group=None, target=None, name=None, args=(), kwargs={}, verbose=None):
@@ -152,7 +155,7 @@ def main(device):
     font1 = ImageFont.truetype(font_path, 10)
     frame_rate = 0.5
     screen_time = 5
-    screen_fun= {1:get_screen_info_1, 2:get_screen_info_2, 3:get_screen_info_3}
+    screen_fun= {1:get_screen_info_1, 2:get_screen_info_2, 3:get_screen_info_3, 4:get_screen_info_4}
     next_screen_info = get_screen_info_1()
     
     while True:    
