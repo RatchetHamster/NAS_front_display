@@ -109,7 +109,7 @@ def get_screen_info_4():
     status1 = is_pi_online(host1)
     info = f'{"AudioPi": <11}{status1}\n'
     if status1 == "Online":
-        info += f'{" - MP3": <11}{check_service(host1, "pirate-mp3")}\n'
+        info += f'{" - MP3": <11}{check_service(host1, "piaudio")}\n'
         info += f'{" - Samba": <11}{check_service(host1, "smbd")}\n'
     return info
 
