@@ -5,7 +5,7 @@ After=multi-user.target
 [Service]
 User=root
 
-WorkingDirectory=/home/pi/piaudio
+WorkingDirectory= /home/pi/python/NAS_front_display
 ExecStart=/home/pi/python/venvs/venv_front_io/bin/python /home/pi/python/NAS_front_display/main.py
 
 Restart=always
