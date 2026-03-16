@@ -6,7 +6,7 @@ After=multi-user.target
 User=root
 
 WorkingDirectory=/home/pi/piaudio
-ExecStart=/home/pi/python/venvs/venv_front_io/bin/python3 /home/pi/python/NAS_front_display/main.py
+ExecStart=/home/pi/python/venvs/venv_front_io/bin/python /home/pi/python/NAS_front_display/main.py
 
 Restart=always
 RestartSec=2
